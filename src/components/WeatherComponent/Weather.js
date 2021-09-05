@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import  DisplayWeather  from '../DisplayWeatherComponent/DisplayWeather';
+import React, { useState } from 'react';
+import DisplayWeather from '../DisplayWeatherComponent/DisplayWeather';
 import './weather.css';
 
 export const Weather = ({ data }) => {
-  const [weather, setWeather] = useState([]);
+  const [weather, setWeather] = useState({});
   const [form, setForm] = useState({
     city: '',
     country: '',
@@ -13,32 +13,51 @@ export const Weather = ({ data }) => {
   async function weatherData(e) {
     e.preventDefault();
     if (form.city === '') {
-      alert('Add values');
+      alert('Enter values for city & country');
     } else {
       const data = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${form.city},${form.country}&APPID=${APIKEY}`
       )
+        .then(checkStatus)
         .then((res) => res.json())
         .then((data) => data);
 
-      setWeather({ data: data });
+      console.log(data);
+      console.log(data.coord.lat);
+      console.log(data.coord.lon);
+
+      if (data.cod === '404') {
+        alert('Enter a valid city & country ');
+      } else {
+        setWeather({ data });
+      }
     }
+    weatherSevenDayData();
   }
+
+  const checkStatus = (res) => {
+    if (res.status >= 200 && res.status < 300) {
+      return res;
+    } else {
+      let err = new Error(res.statusText);
+      err.response = res;
+      throw err;
+    }
+  };
+
+  const weatherSevenDayData = () => {
+    console.log('7 day function called');
+  };
 
   const handleChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
 
-    if (name === 'city') {
-      setForm({ ...form, city: value });
-    }
-    if (name === 'country') {
-      setForm({ ...form, country: value });
-    }
+    setForm({ ...form, [name]: value });
   };
   return (
     <div className='weather'>
-      <span className='title'>Weather App</span>
+      <span className='title'>React Weather App</span>
       <br />
       <form>
         <input
