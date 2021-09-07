@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import DisplayWeather from '../DisplayWeatherComponent/DisplayWeather';
+import { DisplaySevenDayWeather } from '../DisplayWeatherComponent/DisplaySevenDayWeather';
 import './weather.css';
 
 export const Weather = ({ data }) => {
   const [weather, setWeather] = useState({});
+  const [lat, setLat] = useState({});
+  const [long, setLong] = useState({});
   const [form, setForm] = useState({
     city: '',
     country: '',
@@ -16,15 +19,18 @@ export const Weather = ({ data }) => {
       alert('Enter values for city & country');
     } else {
       const data = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${form.city},${form.country}&APPID=${APIKEY}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${form.city},${form.country}&APPID=${APIKEY}&units=metric`
       )
         .then(checkStatus)
         .then((res) => res.json())
         .then((data) => data);
 
-      console.log(data);
-      console.log(data.coord.lat);
-      console.log(data.coord.lon);
+      setLat(data.coord.lat);
+      setLat(data.coord.long);
+
+      console.log(data.name);
+      // console.log(data.coord.lat);
+      // console.log(data.coord.lon);
 
       if (data.cod === '404') {
         alert('Enter a valid city & country ');
@@ -45,8 +51,14 @@ export const Weather = ({ data }) => {
     }
   };
 
-  const weatherSevenDayData = () => {
-    console.log('7 day function called');
+  const weatherSevenDayData = async () => {
+    const endpoint =
+      'https://api.openweathermap.org/data/2.5/onecall?lat=51.3385&lon=-0.1159&exclude=current,hourly,minutely,alerts&units=metric&appid=29d0d2ae524fcf79540d75dc3210e8a8';
+
+    const data = await fetch(endpoint)
+      .then((res) => res.json())
+      .then((data) => data);
+    console.log('7 day data', data);
   };
 
   const handleChange = (e) => {
@@ -69,7 +81,7 @@ export const Weather = ({ data }) => {
         &nbsp; &nbsp; &nbsp;&nbsp;
         <input
           type='text'
-          placeholder='Country'
+          placeholder='country'
           name='country'
           onChange={(e) => handleChange(e)}
         />
@@ -81,6 +93,7 @@ export const Weather = ({ data }) => {
       {weather.data !== undefined ? (
         <div>
           <DisplayWeather data={weather.data} />
+          <DisplaySevenDayWeather data={weather.data} />
         </div>
       ) : null}
     </div>

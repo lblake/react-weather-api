@@ -38,7 +38,6 @@
 
 .displayweather .weather-icon {
   width: 100px;
-
   position: absolute;
   top: 50px;
 }
@@ -70,6 +69,7 @@
   justify-self: right;
   width: 300px;
 }
+
 
 h4 {
   text-align: left;

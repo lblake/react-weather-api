@@ -19,8 +19,9 @@ function DisplayWeather({ data }) {
 
             <h1>
               {' '}
-              {Math.floor(data.main.temp - 273.15)}
-              <sup>o</sup>
+              {/* {Math.floor(data.main.temp - 273.15)} */}
+              {data.main.temp}
+              <sup>&deg;F</sup>
             </h1>
             <span className='weather-main'>{data.weather[0].main}</span>
             <img className='weather-icon' src={iconurl} alt='' srcset='' />
@@ -38,8 +39,7 @@ function DisplayWeather({ data }) {
                   </td>
                   <td>
                     <span>
-                      {Math.floor(data.main.temp_max - 273.15)}/
-                      {Math.floor(data.main.temp_min - 273.15)}
+                      {data.main.temp_max} / {data.main.temp_min}
                     </span>
                   </td>
                 </tr>
@@ -77,7 +77,7 @@ function DisplayWeather({ data }) {
                     <h4>Wind</h4>
                   </td>
                   <td>
-                    <span>{Math.floor((data.wind.speed * 18) / 5)} km/hr</span>
+                    <span>{data.wind.speed} km/hr</span>
                   </td>
                 </tr>
                 <tr>
