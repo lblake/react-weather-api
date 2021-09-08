@@ -21,12 +21,9 @@ export const Weather = ({ data }) => {
       const data = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${form.city},${form.country}&APPID=${APIKEY}&units=metric`
       )
-        .then(checkStatus)
+        // .then(checkStatus)
         .then((res) => res.json())
         .then((data) => data);
-
-      setLat(data.coord.lat);
-      setLat(data.coord.long);
 
       console.log(data.name);
       // console.log(data.coord.lat);
@@ -38,6 +35,7 @@ export const Weather = ({ data }) => {
         setWeather({ data });
       }
     }
+
     weatherSevenDayData();
   }
 
