@@ -5,12 +5,12 @@ import './weather.css';
 
 export const Weather = ({ data }) => {
   const [weather, setWeather] = useState({});
-  const [lat, setLat] = useState({});
-  const [long, setLong] = useState({});
   const [form, setForm] = useState({
     city: '',
     country: '',
   });
+
+  const [coords, setCoords] = useState({ lat: '', lon: '' });
 
   const APIKEY = '29d0d2ae524fcf79540d75dc3210e8a8';
   async function weatherData(e) {
@@ -21,37 +21,24 @@ export const Weather = ({ data }) => {
       const data = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${form.city},${form.country}&APPID=${APIKEY}&units=metric`
       )
-        // .then(checkStatus)
         .then((res) => res.json())
-        .then((data) => data);
-
-      console.log(data.name);
-      // console.log(data.coord.lat);
-      // console.log(data.coord.lon);
+        .then((data) => data)
+        .catch((error) => console.log(error));
 
       if (data.cod === '404') {
         alert('Enter a valid city & country ');
+        setForm({ city: '', country: '' });
       } else {
         setWeather({ data });
+        setCoords({ lat: data.coord.lat, lon: data.coord.lon });
+        weatherSevenDayData(data.coord.lat, data.coord.lon);
+        setForm({ city: '', country: '' });
       }
     }
-
-    weatherSevenDayData();
   }
 
-  const checkStatus = (res) => {
-    if (res.status >= 200 && res.status < 300) {
-      return res;
-    } else {
-      let err = new Error(res.statusText);
-      err.response = res;
-      throw err;
-    }
-  };
-
-  const weatherSevenDayData = async () => {
-    const endpoint =
-      'https://api.openweathermap.org/data/2.5/onecall?lat=51.3385&lon=-0.1159&exclude=current,hourly,minutely,alerts&units=metric&appid=29d0d2ae524fcf79540d75dc3210e8a8';
+  const weatherSevenDayData = async (lat, lon) => {
+    const endpoint = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,hourly,minutely,alerts&units=metric&appid=${APIKEY}`;
 
     const data = await fetch(endpoint)
       .then((res) => res.json())
@@ -60,8 +47,8 @@ export const Weather = ({ data }) => {
   };
 
   const handleChange = (e) => {
-    let name = e.target.name;
-    let value = e.target.value;
+    const name = e.target.name;
+    const value = e.target.value;
 
     setForm({ ...form, [name]: value });
   };
@@ -75,6 +62,7 @@ export const Weather = ({ data }) => {
           placeholder='city'
           name='city'
           onChange={(e) => handleChange(e)}
+          value={form.city}
         />
         &nbsp; &nbsp; &nbsp;&nbsp;
         <input
@@ -82,6 +70,7 @@ export const Weather = ({ data }) => {
           placeholder='country'
           name='country'
           onChange={(e) => handleChange(e)}
+          value={form.country}
         />
         <button className='getweather' onClick={(e) => weatherData(e)}>
           Submit

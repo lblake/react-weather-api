@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
 import { Weather } from './components/WeatherComponent/Weather';
-import  {DisplaySevenDayWeather}  from './components/DisplayWeatherComponent/DisplaySevenDayWeather';
+// import  {DisplaySevenDayWeather}  from './components/DisplayWeatherComponent/DisplaySevenDayWeather';
 
 function App() {
   return (
     <div>
       <Weather />
-      <DisplaySevenDayWeather />
+      {/* <DisplaySevenDayWeather /> */}
     </div>
   );
 }
