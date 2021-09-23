@@ -5,7 +5,7 @@ import './weather.css';
 
 export const Weather = ({ data }) => {
   const [weather, setWeather] = useState({});
-  const [sevenDayWeather, setSevenDayWeather] = useState({})
+  const [sevenDayWeather, setSevenDayWeather] = useState({});
   const [form, setForm] = useState({
     city: '',
     country: '',
@@ -45,6 +45,7 @@ export const Weather = ({ data }) => {
       .then((res) => res.json())
       .then((data) => data);
     console.log('7 day data', data);
+    setSevenDayWeather(data);
   };
 
   const handleChange = (e) => {
@@ -52,8 +53,6 @@ export const Weather = ({ data }) => {
     const value = e.target.value;
 
     setForm({ ...form, [name]: value });
-    setSevenDayWeather({data})
-
   };
   return (
     <div className='weather'>
@@ -83,7 +82,7 @@ export const Weather = ({ data }) => {
       {weather.data !== undefined ? (
         <div>
           <DisplayWeather data={weather.data} />
-          <DisplaySevenDayWeather sevendaydata={sevenDayWeather.data} />
+          <DisplaySevenDayWeather sevendaydata={sevenDayWeather} />
         </div>
       ) : null}
     </div>

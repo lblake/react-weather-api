@@ -10,9 +10,9 @@
   margin-top: 20px;
   align-self: center;
   padding: 50px;
-  border-radius: 20px;
+  border-radius: 30px;
   position: relative;
-  background: rgb(245, 242, 242);
+  /* background: rgb(245, 242, 242); */
   border: 1px solid black;
 }
 
@@ -26,20 +26,21 @@
 .displayweather .maincard .cardsubtitle {
   position: absolute;
   left: 10px;
-
-  color: grey;
   margin-top: -8px;
 }
 .displayweather h1 {
-  font-size: 5rem;
+  font-size: 4rem;
   margin: -10px;
   margin-left: -150px;
+  text-align: center;
 }
 
 .displayweather .weather-icon {
   width: 100px;
   position: absolute;
-  top: 50px;
+  /* top: 50px; */
+  bottom: 105px;
+  margin: -70.5px;
 }
 
 .displayweather .weather-main {
@@ -70,13 +71,14 @@
   width: 300px;
 }
 
-
 h4 {
   text-align: left;
   margin-right: 30px;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
-
+/* h1 {
+  text-align: center;
+} */
 td {
   border-bottom: 2px dashed grey;
 }

@@ -1,32 +1,38 @@
 import React from 'react';
+import './displaysevendayweather.css';
 
 export const DisplaySevenDayWeather = ({ sevendaydata }) => {
-  const iconUrl =
-    'http://openweathermap.org/img/wn/' +
-    `${sevendaydata.cod !== 404 ? sevendaydata.weather[0].icon : null}` +
-    '.png';
+  console.log(sevendaydata);
 
-  const sevenDayData = sevendaydata.daily.map((day, index)) => {
-    if (index > 0) {
-      const dayName = new Date(day.dt * 1000).toLocaleDateString('en', {
-        weekday: 'long',
-      });
-      const iconUrl = day.weather[0].icon;
-      const temp = day.temp.day.toFixed(0);
-      return (
-        <div class='forecast-day'>
-          <p>${dayName}</p>
-          <p>
-            <span class={`ico-${iconUrl}`} title={`${iconUrl}`}></span>
-          </p>
-          <div class='forecast-day--temp'>
-            ${temp}
-            <sup>°deg</sup>
+  const sevenDayData =
+    sevendaydata &&
+    sevendaydata.daily &&
+    sevendaydata.daily.length > 0 &&
+    sevendaydata.daily.map((day, index) => {
+      const iconUrl =
+        'http://openweathermap.org/img/wn/' +
+        sevendaydata.daily[index].weather[0].icon +
+        '.png';
+      if (index > 0) {
+        const dayName = new Date(day.dt * 1000).toLocaleDateString('en', {
+          weekday: 'long',
+        });
+        const temp = day.temp.day.toFixed(0);
+        return (
+          <div className='forecast-day'>
+            <p>{dayName}</p>
+            <p>
+              <span className={`ico-${iconUrl}`} title={`${iconUrl}`}></span>
+              <img className='weather-icon' src={iconUrl} alt='' srcset='' />
+            </p>
+            <div className='forecast-day--temp'>
+              {temp}
+              <sup>°F</sup>
+            </div>
           </div>
-        </div>
-      );
-    }
-  });
+        );
+      }
+    });
 
   console.log(sevenDayData);
 

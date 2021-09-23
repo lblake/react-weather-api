@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+.forecast-day--temp {
+  text-align: center;
+}
+
+.forecast-day {
+  border: 3px black solid;
+  border-radius: 10px;
+  display: inline-block;
+  width: 6.25rem;
+  height: 10.25rem;
+  margin: 5px;
+}
+
+p {
+  text-align: center;
+}
