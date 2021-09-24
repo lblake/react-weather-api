@@ -13,14 +13,14 @@ export const Weather = ({ data }) => {
 
   const [coords, setCoords] = useState({ lat: '', lon: '' });
 
-  const APIKEY = '29d0d2ae524fcf79540d75dc3210e8a8';
+  console.log(process.env.REACT_APP_API_KEY);
   async function weatherData(e) {
     e.preventDefault();
     if (form.city === '') {
       alert('Enter values for city & country');
     } else {
       const data = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${form.city},${form.country}&APPID=${APIKEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?q=${form.city},${form.country}&APPID=${process.env.REACT_APP_API_KEY}&units=metric`
       )
         .then((res) => res.json())
         .then((data) => data)
@@ -39,7 +39,7 @@ export const Weather = ({ data }) => {
   }
 
   const weatherSevenDayData = async (lat, lon) => {
-    const endpoint = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,hourly,minutely,alerts&units=metric&appid=${APIKEY}`;
+    const endpoint = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,hourly,minutely,alerts&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
 
     const data = await fetch(endpoint)
       .then((res) => res.json())
