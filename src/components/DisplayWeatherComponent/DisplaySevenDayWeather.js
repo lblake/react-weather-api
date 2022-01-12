@@ -10,7 +10,7 @@ export const DisplaySevenDayWeather = ({ sevendaydata }) => {
     sevendaydata.daily.length > 0 &&
     sevendaydata.daily.map((day, index) => {
       const iconUrl =
-        'http://openweathermap.org/img/wn/' +
+        'https://openweathermap.org/img/wn/' +
         sevendaydata.daily[index].weather[0].icon +
         '.png';
       if (index > 0) {
