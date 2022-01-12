@@ -14,7 +14,7 @@ function DisplayWeather( {data} ) {
               {data.name} , {data.sys.country}. Weather
             </span>
             <span className='cardsubtitle'>
-              As of {new Date().toLocaleTimeString()}
+              {/* As of {new Date().toLocaleTimeString()} */}
             </span>
 
             <h1>
